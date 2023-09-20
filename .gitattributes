@@ -1,0 +1,1 @@
+/data/dutchCELEX_vectors.tsv filter=lfs diff=lfs merge=lfs -text
