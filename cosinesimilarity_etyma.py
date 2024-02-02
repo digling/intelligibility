@@ -3,19 +3,28 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 import seaborn as sns
 import matplotlib.pyplot as plt
+from pathlib import Path
 
 # control the text size in the plot below
 sns.set_context("talk")
 
+
+
 # Read the three datasets
-dutch_data = pd.read_csv('/Users/jessicanieder/Desktop/LDL_intelligibility/OSF/data_forLDL/etyma_dutchdata.tsv', sep='\t')
-german_data = pd.read_csv('/Users/jessicanieder/Desktop/LDL_intelligibility/OSF/data_forLDL/etyma_germandata.tsv', sep='\t')
-english_data = pd.read_csv('/Users/jessicanieder/Desktop/LDL_intelligibility/OSF/data_forLDL/etyma_englishdata.tsv', sep='\t')
+dutch_data = pd.read_csv(
+        Path(__file__).parent / "data" / "etyma_dutchdata.tsv", sep='\t'
+        )
+german_data = pd.read_csv(
+        Path(__file__).parent / "data" / "etyma_germandata.tsv", 
+        sep='\t')
+english_data = pd.read_csv(
+        Path(__file__).parent / "data" / "etyma_englishdata.tsv", 
+        sep='\t')
 
 # Load word embeddings from NumPy arrays
-S_trainGER = np.load('/Users/jessicanieder/Desktop/LDL_intelligibility/OSF/data_forLDL/S_GER_etymamatrix.npy')
-S_testDUT = np.load('/Users/jessicanieder/Desktop/LDL_intelligibility/OSF/data_forLDL/S_DUT_etymamatrix.npy')
-S_testENG = np.load('/Users/jessicanieder/Desktop/LDL_intelligibility/OSF/data_forLDL/S_ENG_etymamatrix.npy')
+S_trainGER = np.load(Path(__file__).parent / "data" / "S_GER_etymamatrix.npy")
+S_testDUT = np.load(Path(__file__).parent / "data" / "S_DUT_etymamatrix.npy")
+S_testENG = np.load(Path(__file__).parent / "data" / "S_ENG_etymamatrix.npy")
 
 # Create empty lists to store similarity scores and word pairs
 similarity_scores = []
@@ -68,4 +77,4 @@ plt.title('Distribution of Cosine Similarity between Language Pairs')
 # Move the legend to the upper left corner of the plot
 plt.legend(loc='upper left')
 
-plt.show()
+plt.savefig("cosine-similarities.pdf")
